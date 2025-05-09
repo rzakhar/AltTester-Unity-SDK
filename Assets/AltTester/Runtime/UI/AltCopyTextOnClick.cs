@@ -4,19 +4,21 @@ using TMPro; // Remove this if you're not using TextMeshPro
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-public class AltCopyTextOnClick : MonoBehaviour, IPointerClickHandler
+namespace AltTester.AltTesterUnitySDK.UI
 {
-    public TextMeshProUGUI TmpText;
-
-    public void OnPointerClick(PointerEventData eventData)
+    public class AltCopyTextOnClick : MonoBehaviour, IPointerClickHandler
     {
-        AltConsoleLogViewer.Instance.ShowClipboardNotification(InputMisc.GetMousePosition());
+        public TextMeshProUGUI TmpText;
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            AltConsoleLogViewer.Instance.ShowClipboardNotification(InputMisc.GetMousePosition());
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     AltConsoleLogViewer.Instance.Copy(Regex.Replace(TmpText.text, "<.*?>", string.Empty));
 #else
-        GUIUtility.systemCopyBuffer = Regex.Replace(TmpText.text, "<.*?>", string.Empty);
+            GUIUtility.systemCopyBuffer = Regex.Replace(TmpText.text, "<.*?>", string.Empty);
 #endif
+        }
     }
 }
